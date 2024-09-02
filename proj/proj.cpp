@@ -1,20 +1,50 @@
-// proj.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+#include "iostream"
+#include <string>
 
-#include <iostream>
+std::string user_login;
+std::string user_password;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+int main() {
+	while (true) {
+		std::system("cls");
+		std::cout << "Account info: " << std::endl;
+
+		if (user_login.empty()) {
+			std::cout << "Login: " << "None" << std::endl;
+		} 
+		else {
+			std::cout << "Login: " << user_login << std::endl;
+		}
+
+		if (user_password.empty()) {
+			std::cout << "Password: " << "None" << std::endl;
+		}
+		else {
+			std::cout << "Password: " << "Hidden" << std::endl << std::endl;
+		}
+
+		std::cout << "1. Login to existing account" << std::endl;
+		std::cout << "2. Create a new account" << std::endl;
+		std::cout << "0. Exit" << std::endl;
+
+		std::string choice;
+		std::getline(std::cin, choice);
+
+		if (choice.length() != 1) continue;
+		if (static_cast<int>(choice[0]) < 48 || static_cast<int>(choice[0]) > 50) continue;
+
+		switch (static_cast<int>(choice[0])) {
+			case 48: return 0;
+			case 49: {
+				// login
+				break;
+			}
+			case 50: {
+				//creating
+				break;
+			}
+		}
+	}
+
+	return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
