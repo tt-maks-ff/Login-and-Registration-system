@@ -1,22 +1,22 @@
-#include "iostream"
+#include <iostream>
 #include <string>
 
-std::string user_login;
-std::string user_password;
+std::string userLogin;
+std::string userPsassword;
 
 int main() {
 	while (true) {
 		std::system("cls");
 		std::cout << "Account info: " << std::endl;
 
-		if (user_login.empty()) {
+		if (userLogin.empty()) {
 			std::cout << "Login: " << "None" << std::endl;
 		} 
 		else {
-			std::cout << "Login: " << user_login << std::endl;
+			std::cout << "Login: " << userLogin << std::endl;
 		}
 
-		if (user_password.empty()) {
+		if (userPsassword.empty()) {
 			std::cout << "Password: " << "None" << std::endl;
 		}
 		else {
