@@ -70,7 +70,7 @@ int main() {
 
 				while (true) {
 					std::system("cls");
-					std::cout << "Password rules: \n -8+ symbols \n -upper- and lower- case letters \n -at least 1 digit \n -only latin letters \n -one of '# $ & * @' necessary \n\n\n\n" << std::endl;
+					std::cout << "Password rules: \n -8+ symbols \n -upper- and lower- case letters \n -at least 1 digit \n -only latin letters \n -one of '# $ % &' necessary \n\n\n\n" << std::endl;
 					std::cout << "Login: " << userLogin << std::endl;
 					std::cout << "Password: ";
 					std::getline(std::cin, userPassword);
@@ -78,7 +78,7 @@ int main() {
 
 					if (!ms.checkPassword(userPassword)) {
 						std::system("cls");
-						std::cout << "Password rules: \n -8+ symbols \n -upper- and lower- case letters \n -at least 1 digit \n -only latin letters \n -one of '# $ & * @' necessary \n\n\n\n" << std::endl;
+						std::cout << "Password rules: \n -8+ symbols \n -upper- and lower- case letters \n -at least 1 digit \n -only latin letters \n -one of '# $ % &' necessary \n\n\n\n" << std::endl;
 						std::cout << "Try again. " << std::endl;
 						std::system("pause");
 						continue;

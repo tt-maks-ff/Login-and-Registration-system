@@ -60,21 +60,22 @@ int MS::checkPassword(std::string login) {
 	// upper and lowercase letters
 	// at least 1 digit
 	// only latin letters
-	// '#$&*@' necessary
+	// '#$%&' necessary
 
 	if (login.length() < 6) return 0;
 
-	bool uppercase, lowercase, digit;
-	uppercase = lowercase = digit = false;
+	bool uppercase, lowercase, digit, symb;
+	uppercase = lowercase = digit = symb = false;
 
 	for (char symbol : login) {
 		if (static_cast<int>(symbol) < 33 || static_cast<int>(symbol) > 126) return 0;
 		if (isupper(symbol)) uppercase = true;
 		if (islower(symbol)) lowercase = true;
 		if (isdigit(symbol)) digit = true;
+		if (static_cast<int>(symbol) >= 35 && static_cast<int>(symbol) <= 38) symb = true;
 	}
 
-	if (uppercase && lowercase && digit) return 1;
+	if (uppercase && lowercase && digit && symb) return 1;
 	else return 0;
 }
 
