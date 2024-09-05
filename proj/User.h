@@ -9,6 +9,7 @@ private:
 
 public:
 	User();
+	User(std::string login, std::string password, bool isAdmin);
 	~User();
 	std::string getLogin();
 	std::string getPassword();

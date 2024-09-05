@@ -1,9 +1,10 @@
 #include "User.h"
 #include <iostream>
 
-User::User() {
-	isAdmin = false;
-}
+User::User() : isAdmin(false) {}
+
+User::User(std::string login, std::string password, bool isAdmin) :  login(login), 
+password(password), isAdmin(isAdmin) {}
 
 int User::setLogin(std::string login) {
 	if (login.empty()) return 1;
@@ -12,6 +13,7 @@ int User::setLogin(std::string login) {
 	}
 	catch (std::exception ex) {
 		std::cout << ex.what() << std::endl;
+		std::system("pause");
 		return 1;
 	}
 	return 0;
@@ -24,6 +26,7 @@ int User::setPassword(std::string password) {
 	}
 	catch (std::exception ex) {
 		std::cout << ex.what() << std::endl;
+		std::system("pause");
 		return 1;
 	}
 	return 0;
@@ -39,6 +42,7 @@ int User::changeStatus() {
 	}
 	catch (std::exception ex) {
 		std::cout << ex.what() << std::endl;
+		std::system("pause");
 		return 1;
 	}
 	return 0;
@@ -50,6 +54,7 @@ std::string User::getLogin() {
 	}
 	catch (std::exception ex) {
 		std::cout << ex.what() << std::endl;
+		std::system("pause");
 	}
 }
 
@@ -59,6 +64,7 @@ std::string User::getPassword() {
 	}
 	catch (std::exception ex) {
 		std::cout << ex.what() << std::endl;
+		std::system("pause");
 	}
 }
 
