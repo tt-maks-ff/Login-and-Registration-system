@@ -15,6 +15,6 @@ public:
 	std::string getPassword();
 	int setLogin(std::string login);
 	int setPassword(std::string password);
-	int checkStatus();
+	bool checkStatus();
 	int changeStatus();
 };

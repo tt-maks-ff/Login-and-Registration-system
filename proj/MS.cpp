@@ -20,17 +20,16 @@ int MS::addUser(std::string login, std::string password, bool isAdmin) {
 	return 0;
 }
 
-int MS::findUserByLogin(std::string login) {
+User* MS::findUserByLogin(std::string login) {
 	try {
 		for (auto* user : users) {
-			if (user->getLogin() == login) return 1;
+			if (user->getLogin() == login) return user;
 		}
 	}
 	catch (std::exception ex) {
 		std::cout << ex.what() << std::endl;
-		return 2;
 	}
-	return 0;
+	return nullptr;
 }
 
 int MS::checkLogin(std::string login) {

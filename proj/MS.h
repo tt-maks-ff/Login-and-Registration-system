@@ -13,7 +13,7 @@ public:
 	~MS();
 	int getSize();
 	int addUser(std::string login, std::string password, bool isAdmin);
-	int findUserByLogin(std::string login);
+	User* findUserByLogin(std::string login);
 	int checkLogin(std::string login);
 	int checkPassword(std::string password);
 	bool checkStatus(std::string userPhrase);

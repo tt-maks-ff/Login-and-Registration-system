@@ -29,13 +29,15 @@ int main() {
 
 		std::cout << "1. Login to existing account" << std::endl;
 		std::cout << "2. Create a new account" << std::endl;
+		if (!userLogin.empty() && !userPassword.empty()) std::cout << "3. Show my password" << std::endl;
 		std::cout << "0. Exit" << std::endl;
 
 		std::string choice;
 		std::getline(std::cin, choice);
 
-		if ((choice.length() != 1) || 
-			(static_cast<int>(choice[0]) < 48 || static_cast<int>(choice[0]) > 50)) {
+		if ((choice.length() != 1) ||
+			((static_cast<int>(choice[0]) < 48 || static_cast<int>(choice[0]) > 51) && !userLogin.empty() && !userPassword.empty()) ||
+			((static_cast<int>(choice[0]) < 48 || static_cast<int>(choice[0]) > 50) && userLogin.empty() && userPassword.empty())) {
 			std::cout << "Choose correct number." << std::endl;
 			std::system("pause");
 			continue;
@@ -44,8 +46,35 @@ int main() {
 		switch (static_cast<int>(choice[0])) {
 			case 48: return 0;
 			case 49: {
-				
-				//login
+				while (true) {
+					std::system("cls");
+					std::cout << "Enter your login: ";
+					std::getline(std::cin, userLogin);
+					std::cout << "Enter your password: ";
+					std::getline(std::cin, userPassword);
+
+					User* target = ms.findUserByLogin(userLogin);
+					if (target && target->getPassword() == userPassword) {
+						std::system("cls");
+						std::cout << "Hello, dear user!" << std::endl;
+						isAdmin = target->checkStatus();
+						std::system("pause");
+						break;
+					}
+					else if (!target) {
+						std::system("cls");
+						std::cout << "Error. Try again." << std::endl;
+						std::system("pause");
+						continue;
+					}
+					else {
+						std::system("cls");
+						std::cout << "Incorrect password. Try again." << std::endl;
+						std::system("pause");
+						continue;
+					}
+				}
+
 				break;
 			}
 			case 50: {
@@ -110,6 +139,7 @@ int main() {
 					break;
 				}
 				case 'n':
+					isAdmin = false;
 					break;
 				default:
 					break;
@@ -122,12 +152,18 @@ int main() {
 					userPassword.clear();
 					std::system("pause");
 				}
+
+				break;
+			}
+			case 51: {
+				std::system("cls");
+				std::cout << "Your password: " << userPassword << std::endl;
+				std::system("pause");
+
+				break;
 			}
 		}
 	}
 
 	return 0;
 }
-
-
-// todo: login process

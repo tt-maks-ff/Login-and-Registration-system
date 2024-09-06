@@ -32,7 +32,7 @@ int User::setPassword(std::string password) {
 	return 0;
 }
 
-int User::checkStatus() {
+bool User::checkStatus() {
 	return isAdmin;
 }
 
