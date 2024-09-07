@@ -1,7 +1,44 @@
 #include "MS.h"
 #include <iostream>
+#include <sstream>
 
-MS::MS() : size(0) {}
+MS::MS() {
+	this->file.open("users.txt");
+
+	this->size = 0;
+
+	if (file.is_open()) {
+		std::string line;
+		while (std::getline(file, line)) {
+			User* newUser = new User;
+			std::string data;
+			int i = 0;
+			std::string login, password;
+			bool status = false;
+
+			std::istringstream iss(line);
+
+			while (std::getline(iss, data, ' ')) {
+				if (i == 0) login = data;
+				if (i == 1) password = data;
+				if (i == 2) status = stoi(data);
+				i++;
+			}
+			
++			newUser->setLogin(login);
+			newUser->setPassword(password);
+			if (status) newUser->changeStatus();
+
+			users.push_back(newUser);
+			this->size++;
+		}
+	}
+	else {
+		this->size = 0;
+	}
+
+	file.close();
+}
 
 int MS::getSize() {
 	return this->size;
@@ -11,6 +48,7 @@ int MS::addUser(std::string login, std::string password, bool isAdmin) {
 	try {
 		User* newUser = new User{ login, password, isAdmin };
 		users.push_back(newUser);
+		size++;
 	}
 	catch (std::exception ex) {
 		std::cout << ex.what() << std::endl;
@@ -83,4 +121,21 @@ bool MS::checkStatus(std::string userPhrase) {
 	else return false;
 }
 
-MS::~MS() {}
+std::list<User*> MS::getAllUsers() {
+	if (users.empty()) return {};
+	else {
+		return users;
+	}
+
+}
+
+MS::~MS() {
+	this->file.open("users.txt", std::ios::out);
+	
+	if (file.is_open() && size) {
+		for (auto user : this->users) {
+			file << user->getLogin() << ' ' << user->getPassword() << ' ' << user->checkStatus() << std::endl;
+		}
+	}
+	file.close();
+}

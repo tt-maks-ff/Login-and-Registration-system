@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "User.h"
 #include "MS.h"
 
@@ -30,18 +31,22 @@ int main() {
 		std::cout << "1. Login to existing account" << std::endl;
 		std::cout << "2. Create a new account" << std::endl;
 		if (!userLogin.empty() && !userPassword.empty()) std::cout << "3. Show my password" << std::endl;
+		if (!userLogin.empty() && !userPassword.empty() && isAdmin) std::cout << "4. Show all users" << std::endl;
 		std::cout << "0. Exit" << std::endl;
+
 
 		std::string choice;
 		std::getline(std::cin, choice);
 
 		if ((choice.length() != 1) ||
-			((static_cast<int>(choice[0]) < 48 || static_cast<int>(choice[0]) > 51) && !userLogin.empty() && !userPassword.empty()) ||
+			((static_cast<int>(choice[0]) < 48 || static_cast<int>(choice[0]) > 51) && !userLogin.empty() && !userPassword.empty() && !isAdmin) ||
 			((static_cast<int>(choice[0]) < 48 || static_cast<int>(choice[0]) > 50) && userLogin.empty() && userPassword.empty())) {
 			std::cout << "Choose correct number." << std::endl;
 			std::system("pause");
 			continue;
 		}
+
+		
 
 		switch (static_cast<int>(choice[0])) {
 			case 48: return 0;
@@ -64,14 +69,20 @@ int main() {
 					else if (!target) {
 						std::system("cls");
 						std::cout << "Error. Try again." << std::endl;
+						userLogin.clear();
+						userPassword.clear();
+						isAdmin = false;
 						std::system("pause");
-						continue;
+						break;
 					}
 					else {
 						std::system("cls");
 						std::cout << "Incorrect password. Try again." << std::endl;
+						userLogin.clear();
+						userPassword.clear();
+						isAdmin = false;
 						std::system("pause");
-						continue;
+						break;
 					}
 				}
 
@@ -160,6 +171,28 @@ int main() {
 				std::cout << "Your password: " << userPassword << std::endl;
 				std::system("pause");
 
+				break;
+			}
+			case 52: {
+				std::system("cls");
+
+				std::list<User*> users = ms.getAllUsers();
+				
+				std::cout << "No." << std::setw(12) << "user_login" << std::setw(15) << "user_password" << std::setw(10) << "is_admin" << std::endl;
+
+				int i = 0;
+				for (auto user : users) {
+					std::cout << i++ << std::setw(12) << user->getLogin() << std::setw(15) << user->getPassword() << std::setw(10) << user->checkStatus() << std::endl;
+				}
+					
+				std::cout << "\n\n\n" << std::endl;
+				std::system("pause");
+				break;
+			}
+			default: {
+				std::system("cls");
+				std::cout << "Coming soon." << std::endl;
+				std::system("pause");
 				break;
 			}
 		}
